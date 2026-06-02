@@ -427,7 +427,12 @@ export namespace Schemas {
     | "webhook.updated"
     | "webhook.deleted"
     | "client.maintenance.enabled"
-    | "client.maintenance.disabled";
+    | "client.maintenance.disabled"
+    | "organization.created"
+    | "organization.updated"
+    | "organization.deleted"
+    | "organization.member.added"
+    | "organization.member.removed";
   export type WebhookSubscriber = { id: string; name: WebhookTrigger; webhook_id: string };
   export type Webhook = {
     created_at: string;

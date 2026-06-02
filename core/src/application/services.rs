@@ -437,6 +437,7 @@ pub struct ApplicationService {
         OrganizationRepo,
         OrganizationAttributeRepo,
         OrganizationMemberRepo,
+        WebhookRepo,
     >,
     pub(crate) group_service: GroupServiceImpl<
         RealmRepo,

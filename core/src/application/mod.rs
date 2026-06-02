@@ -476,6 +476,7 @@ pub async fn create_service(config: FerriskeyConfig) -> Result<ApplicationServic
             organization_attribute.clone(),
             organization_member.clone(),
             policy.clone(),
+            webhook.clone(),
         ),
         group_service: GroupServiceImpl::new(
             realm.clone(),
