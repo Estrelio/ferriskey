@@ -390,7 +390,7 @@ impl Default for ObservabilityArgs {
             otlp_endpoint: Some("http://localhost:4317".to_string()),
             metrics_endpoint: Some("http://localhost:4317".to_string()),
             otlp_protocol: OtlpProtocol::Grpc,
-            otlp_traces_endpoint: None,
+            otlp_traces_endpoint: Some("http://localhost:4317".to_string()),
             otlp_traces_headers: None,
         }
     }
