@@ -6,9 +6,14 @@ export const APPLICATIONS_URL = (realmName = ':realmName') =>
 export const APPLICATION_CREATE_URL = (realmName = ':realmName') =>
   `${APPLICATIONS_URL(realmName)}/create`
 
+export const APPLICATION_DETAIL_URL = (
+  realmName = ':realmName',
+  clientId = ':clientId',
+) => `${APPLICATIONS_URL(realmName)}/${clientId}`
+
 export const APPLICATION_CREATE_TYPE_URL = (
   realmName = ':realmName',
   type = ':type',
 ) => `${APPLICATION_CREATE_URL(realmName)}/${type}`
 
-export type ApplicationType = 'native' | 'spa' | 'web' | 'm2m'
+export type ApplicationType = 'native' | 'spa' | 'web' | 'm2m' | 'device'

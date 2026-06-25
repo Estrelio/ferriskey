@@ -377,10 +377,7 @@ mod tests {
     use sqlx::Executor as _;
     use uuid::Uuid;
 
-    use crate::domain::authentication::{
-        entities::{AuthSession, AuthSessionParams},
-        ports::AuthSessionRepository as _,
-    };
+    use crate::domain::authentication::entities::{AuthSession, AuthSessionParams};
     use crate::domain::realm::entities::RealmId;
 
     async fn setup() -> (PostgresAuthSessionRepository, Uuid, Uuid) {
@@ -403,7 +400,7 @@ mod tests {
         let schema_pool = sqlx::PgPool::connect(&schema_url)
             .await
             .expect("connect schema pool");
-        sqlx::migrate!("migrations")
+        sqlx::migrate!("./migrations")
             .run(&schema_pool)
             .await
             .expect("run migrations");

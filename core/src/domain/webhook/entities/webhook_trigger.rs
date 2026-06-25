@@ -8,6 +8,8 @@ use utoipa::ToSchema;
 pub enum WebhookTrigger {
     #[serde(rename = "user.created")]
     UserCreated,
+    #[serde(rename = "user.email_verified")]
+    UserEmailVerified,
     #[serde(rename = "user.updated")]
     UserUpdated,
     #[serde(rename = "user.deleted")]
@@ -22,6 +24,12 @@ pub enum WebhookTrigger {
     UserDeleteCredentials,
     #[serde(rename = "auth.reset_password")]
     AuthResetPassword,
+    #[serde(rename = "auth.device_flow.initiated")]
+    AuthDeviceFlowInitiated,
+    #[serde(rename = "auth.device_flow.denied")]
+    AuthDeviceFlowDenied,
+    #[serde(rename = "auth.device_flow.expired")]
+    AuthDeviceFlowExpired,
     #[serde(rename = "client.created")]
     ClientCreated,
     #[serde(rename = "client.updated")]
@@ -80,6 +88,7 @@ impl Display for WebhookTrigger {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             WebhookTrigger::UserCreated => write!(f, "user.created"),
+            WebhookTrigger::UserEmailVerified => write!(f, "user.email_verified"),
             WebhookTrigger::UserUpdated => write!(f, "user.updated"),
             WebhookTrigger::UserDeleted => write!(f, "user.deleted"),
             WebhookTrigger::UserBulkDeleted => write!(f, "user.bulk_deleted"),
@@ -87,6 +96,9 @@ impl Display for WebhookTrigger {
             WebhookTrigger::UserRoleAssigned => write!(f, "user.role.assigned"),
             WebhookTrigger::UserRoleUnassigned => write!(f, "user.role.unassigned"),
             WebhookTrigger::AuthResetPassword => write!(f, "auth.reset_password"),
+            WebhookTrigger::AuthDeviceFlowInitiated => write!(f, "auth.device_flow.initiated"),
+            WebhookTrigger::AuthDeviceFlowDenied => write!(f, "auth.device_flow.denied"),
+            WebhookTrigger::AuthDeviceFlowExpired => write!(f, "auth.device_flow.expired"),
             WebhookTrigger::ClientCreated => write!(f, "client.created"),
             WebhookTrigger::ClientUpdated => write!(f, "client.updated"),
             WebhookTrigger::ClientDeleted => write!(f, "client.deleted"),
@@ -127,6 +139,7 @@ impl TryFrom<String> for WebhookTrigger {
     fn try_from(value: String) -> Result<Self, Self::Error> {
         match value.as_str() {
             "user.created" => Ok(WebhookTrigger::UserCreated),
+            "user.email_verified" => Ok(WebhookTrigger::UserEmailVerified),
             "user.updated" => Ok(WebhookTrigger::UserUpdated),
             "user.deleted" => Ok(WebhookTrigger::UserDeleted),
             "user.bulk_deleted" => Ok(WebhookTrigger::UserBulkDeleted),
@@ -134,6 +147,9 @@ impl TryFrom<String> for WebhookTrigger {
             "user.role.assigned" => Ok(WebhookTrigger::UserRoleAssigned),
             "user.role.unassigned" => Ok(WebhookTrigger::UserRoleUnassigned),
             "auth.reset_password" => Ok(WebhookTrigger::AuthResetPassword),
+            "auth.device_flow.initiated" => Ok(WebhookTrigger::AuthDeviceFlowInitiated),
+            "auth.device_flow.denied" => Ok(WebhookTrigger::AuthDeviceFlowDenied),
+            "auth.device_flow.expired" => Ok(WebhookTrigger::AuthDeviceFlowExpired),
             "client.created" => Ok(WebhookTrigger::ClientCreated),
             "client.updated" => Ok(WebhookTrigger::ClientUpdated),
             "client.deleted" => Ok(WebhookTrigger::ClientDeleted),

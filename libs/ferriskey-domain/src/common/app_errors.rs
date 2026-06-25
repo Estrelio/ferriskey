@@ -28,10 +28,10 @@ pub enum CoreError {
     #[error("Internal server error")]
     InternalServerError,
 
-    #[error("Redirect URI not found")]
+    #[error("No redirect URI is registered for this client")]
     RedirectUriNotFound,
 
-    #[error("Invalid redirect URI")]
+    #[error("Redirect URI is not allowed for this client")]
     InvalidRedirectUri,
 
     #[error("Invalid client")]
@@ -57,6 +57,9 @@ pub enum CoreError {
 
     #[error("Invalid authorization request")]
     InvalidRequest,
+
+    #[error("Invalid credentials")]
+    InvalidCredentials,
 
     #[error("Service account not found")]
     ServiceAccountNotFound,
