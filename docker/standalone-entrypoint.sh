@@ -3,6 +3,9 @@ set -eu
 
 if [ -z "${DATABASE_URL:-}" ]; then
   DATABASE_URL="postgresql://${DATABASE_USER:-ferriskey}:${DATABASE_PASSWORD:-ferriskey}@${DATABASE_HOST:-localhost}:${DATABASE_PORT:-5432}/${DATABASE_NAME:-ferriskey}"
+  if [ -n "${DATABASE_SSLMODE:-}" ]; then
+    DATABASE_URL="${DATABASE_URL}?sslmode=${DATABASE_SSLMODE}"
+  fi
 fi
 export DATABASE_URL
 
