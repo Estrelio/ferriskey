@@ -179,6 +179,14 @@ pub struct DatabaseArgs {
         long_help = "The database schema to use"
     )]
     pub schema: String,
+    #[arg(
+        long = "database-sslmode",
+        env = "DATABASE_SSLMODE",
+        default_value = "",
+        name = "DATABASE_SSLMODE",
+        long_help = "The SSL mode for the database connection (e.g. require, prefer, disable). Empty string uses the driver default."
+    )]
+    pub sslmode: String,
 }
 
 impl Default for DatabaseArgs {
@@ -190,6 +198,7 @@ impl Default for DatabaseArgs {
             port: 5432,
             user: "postgres".to_string(),
             schema: "public".to_string(),
+            sslmode: String::new(),
         }
     }
 }
@@ -203,6 +212,12 @@ impl From<Url> for DatabaseArgs {
             .map(|(_, v)| v.to_string())
             .unwrap_or_else(|| "public".to_string());
 
+        let sslmode = value
+            .query_pairs()
+            .find(|(key, _)| key == "sslmode")
+            .map(|(_, v)| v.to_string())
+            .unwrap_or_default();
+
         Self {
             host: value
                 .host()
@@ -213,6 +228,7 @@ impl From<Url> for DatabaseArgs {
             port: value.port().unwrap_or(5432),
             user: value.username().to_string(),
             schema,
+            sslmode,
         }
     }
 }
@@ -415,6 +431,7 @@ impl From<Args> for FerriskeyConfig {
                 port: value.db.port,
                 username: value.db.user,
                 schema: value.db.schema,
+                sslmode: value.db.sslmode,
             },
         }
     }
