@@ -562,6 +562,7 @@ mod tests {
                 password: db_password,
                 name: db_name,
                 schema: schema.clone(),
+                sslmode: String::new(),
             },
         })
         .await
