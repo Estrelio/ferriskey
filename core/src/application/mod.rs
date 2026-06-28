@@ -136,14 +136,20 @@ pub mod webhook;
 pub use services::ApplicationService;
 
 pub async fn create_service(config: FerriskeyConfig) -> Result<ApplicationService, CoreError> {
+    let sslmode_param = if config.database.sslmode.is_empty() {
+        String::new()
+    } else {
+        format!("&sslmode={}", config.database.sslmode)
+    };
     let database_url = format!(
-        "postgres://{}:{}@{}:{}/{}?options=-c search_path={}",
+        "postgres://{}:{}@{}:{}/{}?options=-c search_path={}{}",
         config.database.username,
         config.database.password,
         config.database.host,
         config.database.port,
         config.database.name,
-        urlencoding::encode(&config.database.schema)
+        urlencoding::encode(&config.database.schema),
+        sslmode_param
     );
 
     let postgres = Postgres::new(PostgresConfig { database_url })
