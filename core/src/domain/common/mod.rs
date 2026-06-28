@@ -25,6 +25,7 @@ pub struct DatabaseConfig {
     pub password: String,
     pub name: String,
     pub schema: String,
+    pub sslmode: String,
 }
 
 pub fn generate_timestamp() -> (DateTime<Utc>, Timestamp) {
